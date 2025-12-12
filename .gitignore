@@ -209,3 +209,7 @@ __marimo__/
 # IDE directories
 /.idea
 /.vscode
+
+# Datasets and files
+/data/*/**
+!data/*/.gitkeep
