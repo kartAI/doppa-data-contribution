@@ -39,7 +39,9 @@ class Config:
 
     # === OSM CONFIG PARAM =========================================================================================== #
     OSM_FEATURE_BATCH_SIZE: int = 250_000
-    OSM_COLUMNS_TO_KEEP: tuple[str, ...] = "id", "geometry", "building", "ref:bygningsnr"
+    OSM_COLUMNS_TO_KEEP: tuple[str, ...] = (
+        "id", "geometry", "name", "ref:bygningsnr", "height", "type", "building:levels", "roof:shape", "roof:levels"
+    )
 
     # === CREDENTIALS ================================================================================================ #
     HUGGING_FACE_API_TOKEN: str = os.getenv("HUGGING_FACE_API_TOKEN")

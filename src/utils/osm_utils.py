@@ -67,8 +67,8 @@ class CustomHandler(SimpleHandler):
     def create_gdf_from_batch(self, batch: list[dict], epsg_code: int = 4326) -> None:
         dataframe = pd.DataFrame(batch)
 
-        # existing_columns = dataframe.columns.intersection(Config.OSM_COLUMNS_TO_KEEP)
-        # dataframe = dataframe[list(existing_columns)]
+        existing_columns = dataframe.columns.intersection(Config.OSM_COLUMNS_TO_KEEP)
+        dataframe = dataframe[list(existing_columns)]
 
         if "building" in dataframe.columns:
             dataframe["building"] = dataframe["building"].where(
