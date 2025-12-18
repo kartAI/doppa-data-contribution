@@ -213,3 +213,6 @@ __marimo__/
 # Datasets and files
 /data/*/**
 !data/*/.gitkeep
+
+# Temp directories
+/.tmp
