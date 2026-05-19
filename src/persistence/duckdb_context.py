@@ -1,5 +1,7 @@
 ﻿import duckdb
 
+from src import Config
+
 
 def create_duckdb_context() -> duckdb.DuckDBPyConnection:
     db_context: duckdb.DuckDBPyConnection = duckdb.connect()
@@ -12,13 +14,16 @@ def create_duckdb_context() -> duckdb.DuckDBPyConnection:
     db_context.install_extension("httpfs")
     db_context.load_extension("httpfs")
 
-    db_context.execute("""
+    db_context.execute(
+        """
         CREATE OR REPLACE SECRET azure_secret(
             TYPE azure,
             PROVIDER config,
-            ACCOUNT_NAME 'doppablobstorage'
+            CONNECTION_STRING $conn
         );
-        """)
+        """,
+        {"conn": Config.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING},
+    )
 
     db_context.execute("SET azure_transport_option_type = curl")
 
