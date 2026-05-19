@@ -45,7 +45,12 @@ def download_kommune_geojson_file(zip_url: str, target_path: Path) -> None:
         if not geojson_members:
             raise ValueError(f"No .geojson file found inside archive at '{zip_url}'")
 
-        geojson_member = geojson_members[0]
+        matching = [name for name in geojson_members if Path(name).name == target_path.name]
+        if not matching:
+            raise ValueError(
+                f"No member named '{target_path.name}' in archive. Available: {geojson_members}"
+            )
+        geojson_member = matching[0]
         target_path.parent.mkdir(parents=True, exist_ok=True)
         with zip_file.open(geojson_member) as src, open(target_path, "wb") as dst:
             dst.write(src.read())
